@@ -59,4 +59,8 @@ text alongside it. Two notes on how that was determined:
 - **anthropics/skills** has no `LICENSE` file at the repository root, but the `skill-creator/`
   directory ships its own `LICENSE.txt` containing Apache-2.0. That is the license that applies to
   the vendored copy.
-- **impeccable** and **claude-mem** are Apache-2.0; the remaining eleven are MIT.
+- **Apache-2.0:** `impeccable`, `how-it-works` (claude-mem), and `skill-creator` (anthropics/skills).
+- **MIT:** the remaining ten.
+
+Each vendored license file was diffed against the corresponding file in its upstream repository and
+is byte-identical.
