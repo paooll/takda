@@ -1,0 +1,13 @@
+{
+  "name": "takda",
+  "private": true,
+  "description": "Takda — a Filipino-inspired smart virtual queue and appointment platform.",
+  "scripts": {
+    "dev": "npm --prefix web run dev",
+    "build": "npm --prefix web run build",
+    "install:all": "npm --prefix web install",
+    "api": "php api/artisan serve",
+    "api:migrate": "php api/artisan migrate --seed",
+    "api:test": "php api/artisan test"
+  }
+}
