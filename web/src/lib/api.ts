@@ -1,5 +1,16 @@
 const TOKEN_KEY = 'takda.token'
 
+/**
+ * Base URL for the Laravel API.
+ *
+ * Defaults to the same origin (`/api`), which is what the Vite dev proxy and a
+ * same-origin CDN setup both want. In production the SPA (Cloudflare Pages /
+ * static hosting) and the API (a PHP host) are different origins, so set
+ * VITE_API_BASE_URL to the API origin at build time, e.g.
+ * https://api.takda.ph — and set TAKDA_FRONTEND_URL on the API to match.
+ */
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? '/api'
+
 export type Role = 'customer' | 'business'
 
 export interface User {
@@ -87,7 +98,7 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
   const token = getToken()
   const isFormData = init.body instanceof FormData
 
-  const response = await fetch(`/api${path}`, {
+  const response = await fetch(`${API_BASE}${path}`, {
     ...init,
     headers: {
       Accept: 'application/json',

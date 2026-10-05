@@ -245,9 +245,20 @@ owner dashboard, appointments, and the API response contract.
 
 ## Deployment
 
-**Frontend (Cloudflare Pages).** Build command `npm run build`, output directory `dist`, root
-directory `web`. Set `VITE_API_PROXY` only for local dev; in production the SPA calls the API
-directly, so set the API origin via `TAKDA_FRONTEND_URL` on the API side to allow CORS.
+**Frontend (Cloudflare Pages or any static host).** Build command `npm run build`, output
+directory `dist`, root directory `web`.
+
+The SPA and the API live on **different origins** in production, so two settings must agree:
+
+| Where | Variable | Value |
+|---|---|---|
+| Build time (static host) | `VITE_API_BASE_URL` | `https://api.example.com` — the API origin, no trailing slash |
+| Runtime (API) | `TAKDA_FRONTEND_URL` | `https://takda.example.com` — the SPA origin |
+
+`VITE_API_BASE_URL` is baked into the bundle at build time. Unset, the SPA falls back to same-origin
+`/api`, which only works if you put the API behind the same host. `TAKDA_FRONTEND_URL` is what the
+API's CORS config allows, so the two mismatched is the usual cause of a blank app with console
+CORS errors. Set `VITE_API_PROXY` for local dev only.
 
 **Backend.** Deploy `api/` to any PHP 8.3 host (Laravel Forge, Laravel Cloud, Railway, Render, or
 a VPS). Set `APP_ENV=production`, `APP_DEBUG=false`, a real `APP_KEY`, and the PostgreSQL
