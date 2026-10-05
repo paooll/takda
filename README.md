@@ -245,10 +245,20 @@ owner dashboard, appointments, and the API response contract.
 
 ## Deployment
 
-**Frontend (Cloudflare Pages or any static host).** Build command `npm run build`, output
-directory `dist`, root directory `web`.
+**Frontend (Cloudflare Pages).** Project settings:
 
-The SPA and the API live on **different origins** in production, so two settings must agree:
+| Setting | Value |
+|---|---|
+| Root directory | `web` |
+| Build command | `npm run build` |
+| Build output directory | `dist` |
+| Node version | `20.19+` (set `NODE_VERSION=20.19.0`, or rely on the `engines` field) |
+
+`web/public/_redirects` carries the SPA fallback that makes `/tickets/12` and `/j/slug/1`
+survive a hard refresh or a shared link; Cloudflare reads it from the build output. Do not
+delete it.
+
+The SPA and the API are on **different origins**, so these two must agree:
 
 | Where | Variable | Value |
 |---|---|---|

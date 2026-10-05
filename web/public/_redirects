@@ -1,0 +1,11 @@
+# Cloudflare Pages SPA fallback.
+#
+# Takda is entirely client-routed, so paths like /tickets/12 or /j/pasig/1 do
+# not exist as files on disk. Without this rule, refreshing the page on any of
+# them — or opening a shared link, or scanning a QR code — returns a 404
+# instead of the app. The 200 rewrite serves index.html and lets the router
+# resolve the path.
+#
+# The API is not affected: it lives on a separate origin, and /api/* never
+# reaches this host.
+/* /index.html 200
