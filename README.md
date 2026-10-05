@@ -113,6 +113,8 @@ development.
 # Terminal 1 — API on :8000
 cd api
 composer install
+cp .env.example .env
+php artisan key:generate       # the API works without a key, but any web route 500s
 php artisan migrate --seed     # creates the schema and demo data
 php artisan serve
 
